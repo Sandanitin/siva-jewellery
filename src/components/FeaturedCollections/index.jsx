@@ -313,14 +313,16 @@ const FeaturedCollections = ({
         </motion.div>
         
         {/* Explore All Button */}
-        <div className="text-center">
-          <Link 
-            to="/collections" 
-            className="inline-block bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-          >
-            Explore All Collections
-          </Link>
-        </div>
+      {showOnlyFeatured && (
+  <div className="text-center">
+    <Link 
+      to="/collections" 
+      className="inline-block bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+    >
+      Explore All Collections
+    </Link>
+  </div>
+)}
     
       </div>
     </section>

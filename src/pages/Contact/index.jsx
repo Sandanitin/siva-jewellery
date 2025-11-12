@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp } from 'react-icons/fa';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -43,6 +43,12 @@ const Contact = () => {
       title: 'Visit Our Store',
       details: ['123 Jewelry Street', 'Bangalore, Karnataka 560001'],
       link: 'https://maps.app.goo.gl/3PH9Me85yFJTWsX8A?g_st=iw'
+    },
+    {
+      icon: <FaWhatsapp className="w-6 h-6" />,
+      title: 'WhatsApp Us',
+      details: ['Chat with our experts', 'Get instant assistance'],
+      link: 'https://wa.me/918977173601'
     },
     {
       icon: <FaClock className="w-6 h-6" />,

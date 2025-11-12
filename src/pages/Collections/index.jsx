@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { FaRupeeSign } from 'react-icons/fa';
 import FeaturedCollections from '../../components/FeaturedCollections';
 
-const CollectionsPage = ({ updateCartItems, cartItems }) => {
+const CollectionsPage = ({ updateCartItems, cartItems, goldRate }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -15,6 +16,8 @@ I'm interested in your jewelry collections and would like to:
 • Get more information about a specific piece
 • Schedule a consultation
 • Check availability and pricing
+
+I'm particularly interested in items with specific weights (grams) for my purchase.
 
 Please let me know the best time to connect. Thank you!`;
     const encodedMessage = encodeURIComponent(message);
@@ -73,6 +76,24 @@ Please let me know the best time to connect. Thank you!`;
           </div>
         </div>
       </section>
+
+      {/* Gold Rate Display */}
+      {goldRate && (
+        <section className="py-4 bg-amber-50 border-b border-amber-100">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-center items-center">
+              <div className="bg-white rounded-lg shadow-sm px-6 py-3 flex items-center border border-amber-200">
+                <span className="text-amber-800 font-medium mr-3">Current 24K Gold Rate:</span>
+                <span className="text-amber-600 font-bold text-lg flex items-center">
+                  <FaRupeeSign className="text-base mr-1" />
+                  {Math.round(goldRate).toLocaleString('en-IN')}
+                  <span className="text-sm ml-1">per gram</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Collections Grid */}
       <section className="py-12 bg-white">

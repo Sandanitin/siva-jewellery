@@ -17,6 +17,7 @@ const FeaturedCollections = ({
       count: '5 items',
       category: 'Head & Hair',
       price: 45999,
+      grams: '25g',
       image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
       sizes: ['One Size']
     },
@@ -26,6 +27,7 @@ const FeaturedCollections = ({
       count: '12 items',
       category: 'Head & Hair',
       price: 25999,
+      grams: '18g',
       image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
       sizes: ['One Size']
     },
@@ -35,6 +37,7 @@ const FeaturedCollections = ({
       count: '8 items',
       category: 'Head & Hair',
       price: 12999,
+      grams: '12g',
       image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
       sizes: ['One Size']
     },
@@ -46,6 +49,7 @@ const FeaturedCollections = ({
       count: '15 items',
       category: 'Earrings',
       price: 18999,
+      grams: '5g',
       image: 'https://d25g9z9s77rn4i.cloudfront.net/uploads/product/1129/1661258687_692158ae086ac8038896.png',
       sizes: ['One Size']
     },
@@ -55,6 +59,7 @@ const FeaturedCollections = ({
       count: '10 items',
       category: 'Earrings',
       price: 22999,
+      grams: '15g',
       image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
       sizes: ['One Size']
     },
@@ -64,6 +69,7 @@ const FeaturedCollections = ({
       count: '20 items',
       category: 'Earrings',
       price: 8999,
+      grams: '8g',
       image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
       sizes: ['One Size']
     },
@@ -75,6 +81,7 @@ const FeaturedCollections = ({
       count: '7 items',
       category: 'Necklace',
       price: 34999,
+      grams: '30g',
       image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
       sizes: ['16 inches', '18 inches', '20 inches']
     },
@@ -84,6 +91,7 @@ const FeaturedCollections = ({
       count: '14 items',
       category: 'Necklace',
       price: 28999,
+      grams: '22g',
       image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
       sizes: ['16 inches', '18 inches', '20 inches']
     },
@@ -93,6 +101,7 @@ const FeaturedCollections = ({
       count: '9 items',
       category: 'Necklace',
       price: 15999,
+      grams: '18g',
       image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
     },
     
@@ -111,6 +120,7 @@ const FeaturedCollections = ({
       count: '11 items',
       category: 'Bracelets',
       price: 12999,
+      grams: '20g',
       image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
     },
     
@@ -121,6 +131,7 @@ const FeaturedCollections = ({
       count: '18 items',
       category: 'Rings',
       price: 49999,
+      grams: '7g',
       image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
     },
     {
@@ -129,6 +140,7 @@ const FeaturedCollections = ({
       count: '22 items',
       category: 'Rings',
       price: 8999,
+      grams: '5g',
       image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
     },
     
@@ -139,6 +151,7 @@ const FeaturedCollections = ({
       count: '13 items',
       category: 'Feet Jewellery',
       price: 5999,
+      grams: '10g',
       image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
     },
     
@@ -149,6 +162,7 @@ const FeaturedCollections = ({
       count: '8 items',
       category: 'Body Jewellery',
       price: 7999,
+      grams: '15g',
       image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
     },
     
@@ -294,15 +308,8 @@ const FeaturedCollections = ({
                 </div>
                 <div className="p-5 flex-grow flex flex-col">
                   <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">{item.name}</h3>
-                  <div className="flex justify-between items-center mb-4">
-                    <p className="text-gray-600 text-sm flex items-center">
-                      <svg className="w-4 h-4 mr-1.5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-                        <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd"></path>
-                      </svg>
-                      {item.count}
-                    </p>
-                    <div className="text-lg font-bold text-amber-700">₹{item.price.toLocaleString('en-IN')}</div>
+                  <div className="text-center mb-4">
+                    <div className="text-lg font-bold text-amber-700">{item.grams}</div>
                   </div>
                   
                   {/* Add to Cart Button */}

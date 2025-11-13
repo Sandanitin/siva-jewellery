@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Layout Components
@@ -16,25 +16,6 @@ import Collections from './pages/Collections';
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [appliedPromo, setAppliedPromo] = useState(null);
-  const [goldRate, setGoldRate] = useState(5500); // Default gold rate in INR per gram
-
-  // Simulate fetching gold rate from admin panel
-  useEffect(() => {
-    // In a real application, this would be an API call to fetch the latest gold rate
-    // For now, we'll simulate periodic updates
-    const interval = setInterval(() => {
-      // Simulate small fluctuations in gold rate
-      const fluctuation = Math.random() * 20 - 10; // -10 to +10
-      setGoldRate(prevRate => Math.max(5000, prevRate + fluctuation));
-    }, 30000); // Update every 30 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Function to update gold rate (would be called from admin panel)
-  const updateGoldRate = (newRate) => {
-    setGoldRate(newRate);
-  };
 
   // Define available promo codes
   const promoCodes = {
@@ -107,9 +88,9 @@ function App() {
       />
       <main className="flex-grow pt-16">
         <Routes>
-          <Route path="/" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} />} />
-          <Route path="/home" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} />} />
-          <Route path="/collections" element={<Collections updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} />} />
+          <Route path="/" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} />} />
+          <Route path="/home" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} />} />
+          <Route path="/collections" element={<Collections updateCartItems={updateCartItems} cartItems={cartItems} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
@@ -117,7 +98,7 @@ function App() {
       <Footer />
       <WhatsAppButton 
         phoneNumber="918977173601"
-        message="Hello! I'm interested in your jewelry collection. I'd like to know more about the weight (grams) of specific items."
+        message="Hello! I'm interested in your jewelry collection."
         cartItems={cartItems}
         onIncreaseQuantity={handleIncreaseQuantity}
         onDecreaseQuantity={handleDecreaseQuantity}

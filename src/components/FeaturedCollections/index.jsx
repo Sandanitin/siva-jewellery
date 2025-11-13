@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaGem, FaHandsHelping, FaShieldAlt, FaShoppingCart } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,28 @@ const FeaturedCollections = ({
   cartItems = [],
   searchTerm = ''
 }) => {
+  // State to track current image index for each product
+  const [currentImageIndex, setCurrentImageIndex] = useState({});
+  
+  // Auto-slide images every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prev => {
+        const updated = { ...prev };
+        collections.forEach(item => {
+          // If product has multiple images, cycle through them
+          if (item.images && item.images.length > 1) {
+            const currentIndex = prev[item.id] || 0;
+            updated[item.id] = (currentIndex >= item.images.length - 1) ? 0 : currentIndex + 1;
+          }
+        });
+        return updated;
+      });
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   const collections = [
     // Head & Hair Jewellery
     {
@@ -19,6 +41,10 @@ const FeaturedCollections = ({
       price: 45999,
       grams: '25g',
       image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
       sizes: ['One Size']
     },
     {
@@ -29,6 +55,10 @@ const FeaturedCollections = ({
       price: 25999,
       grams: '18g',
       image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
       sizes: ['One Size']
     },
     {
@@ -39,6 +69,10 @@ const FeaturedCollections = ({
       price: 12999,
       grams: '12g',
       image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://d25g9z9s77rn4i.cloudfront.net/uploads/product/1129/1661258687_692158ae086ac8038896.png'
+      ],
       sizes: ['One Size']
     },
     
@@ -51,6 +85,10 @@ const FeaturedCollections = ({
       price: 18999,
       grams: '5g',
       image: 'https://d25g9z9s77rn4i.cloudfront.net/uploads/product/1129/1661258687_692158ae086ac8038896.png',
+      images: [
+        'https://d25g9z9s77rn4i.cloudfront.net/uploads/product/1129/1661258687_692158ae086ac8038896.png',
+        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
       sizes: ['One Size']
     },
     {
@@ -61,6 +99,10 @@ const FeaturedCollections = ({
       price: 22999,
       grams: '15g',
       image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
       sizes: ['One Size']
     },
     {
@@ -71,7 +113,12 @@ const FeaturedCollections = ({
       price: 8999,
       grams: '8g',
       image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
-      sizes: ['One Size']
+      images: [
+        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
+      sizes: ['One Size'],
+      textAlign: 'center'
     },
     
     // Neck & Chest Jewellery
@@ -83,6 +130,10 @@ const FeaturedCollections = ({
       price: 34999,
       grams: '30g',
       image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
       sizes: ['16 inches', '18 inches', '20 inches']
     },
     {
@@ -93,6 +144,10 @@ const FeaturedCollections = ({
       price: 28999,
       grams: '22g',
       image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
       sizes: ['16 inches', '18 inches', '20 inches']
     },
     {
@@ -103,6 +158,10 @@ const FeaturedCollections = ({
       price: 15999,
       grams: '18g',
       image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
     },
     
     // Arm & Hand Jewellery
@@ -122,6 +181,10 @@ const FeaturedCollections = ({
       price: 12999,
       grams: '20g',
       image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
     },
     
     // Finger Jewellery
@@ -133,6 +196,10 @@ const FeaturedCollections = ({
       price: 49999,
       grams: '7g',
       image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
     },
     {
       id: 13,
@@ -142,6 +209,10 @@ const FeaturedCollections = ({
       price: 8999,
       grams: '5g',
       image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
     },
     
     // Feet Jewellery
@@ -153,6 +224,10 @@ const FeaturedCollections = ({
       price: 5999,
       grams: '10g',
       image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
     },
     
     // Body & Waist Jewellery
@@ -164,6 +239,10 @@ const FeaturedCollections = ({
       price: 7999,
       grams: '15g',
       image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+      images: [
+        'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90',
+        'https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90'
+      ],
     },
     
     // Nose Jewellery
@@ -295,7 +374,9 @@ const FeaturedCollections = ({
                 <div className="relative h-56 sm:h-48 md:h-56 lg:h-64 overflow-hidden">
                   <div className="w-full h-full">
                     <img 
-                      src={item.image} 
+                      src={item.images && item.images.length > 0 
+                        ? item.images[currentImageIndex[item.id] || 0] 
+                        : item.image} 
                       alt={item.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
@@ -307,7 +388,7 @@ const FeaturedCollections = ({
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 <div className="p-5 flex-grow flex flex-col">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors">{item.name}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors text-center">{item.name}</h3>
                   <div className="text-center mb-4">
                     <div className="text-lg font-bold text-amber-700">{item.grams}</div>
                   </div>

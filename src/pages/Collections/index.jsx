@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { FaRupeeSign } from 'react-icons/fa';
 import FeaturedCollections from '../../components/FeaturedCollections';
 
-const CollectionsPage = ({ updateCartItems, cartItems, goldRate }) => {
+const CollectionsPage = ({ updateCartItems, cartItems, goldRate, silverRate }) => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+
+  // Update search term when URL changes
+  useEffect(() => {
+    const searchQuery = searchParams.get('search') || '';
+    setSearchTerm(searchQuery);
+  }, [searchParams]);
+
+  // Handle search submission
+  const handleSearch = (e) => {
+    e?.preventDefault();
+    if (searchTerm.trim()) {
+      setSearchParams({ search: searchTerm.trim() });
+    } else {
+      setSearchParams({});
+    }
+  };
 
   const handleWhatsAppConsultation = () => {
     const phoneNumber = '918977173601';
@@ -28,7 +46,7 @@ Please let me know the best time to connect. Thank you!`;
       <section className="py-8 bg-white border-b border-gray-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto">
-            <div className="flex">
+            <form onSubmit={handleSearch} className="flex">
               <div className="relative flex-grow">
                 <input
                   type="text"
@@ -44,12 +62,12 @@ Please let me know the best time to connect. Thank you!`;
                 </div>
               </div>
               <button 
+                type="submit"
                 className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-4 rounded-r-2xl font-semibold transition-colors duration-300 shadow-sm"
-                onClick={() => {}}
               >
                 Search
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </section>
@@ -60,12 +78,25 @@ Please let me know the best time to connect. Thank you!`;
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-center items-center">
               <div className="bg-white rounded-lg shadow-sm px-6 py-3 flex items-center border border-amber-200">
-                <span className="text-amber-800 font-medium mr-3">Current 24K Gold Rate:</span>
-                <span className="text-amber-600 font-bold text-lg flex items-center">
-                  <FaRupeeSign className="text-base mr-1" />
-                  {Math.round(goldRate).toLocaleString('en-IN')}
-                  <span className="text-sm ml-1">per gram</span>
-                </span>
+                <div className="flex items-center space-x-6">
+                  <div className="flex items-center">
+                    <span className="text-amber-800 font-medium mr-2">24K Gold:</span>
+                    <span className="text-amber-600 font-bold text-lg flex items-center">
+                      <FaRupeeSign className="text-base mr-1" />
+                      {Math.round(goldRate).toLocaleString('en-IN')}
+                      <span className="text-sm ml-1">/g</span>
+                    </span>
+                  </div>
+                  <div className="h-8 w-px bg-gray-300"></div>
+                  <div className="flex items-center">
+                    <span className="text-amber-800 font-medium mr-2">Silver:</span>
+                    <span className="text-amber-600 font-bold text-lg flex items-center">
+                      <FaRupeeSign className="text-base mr-1" />
+                      {silverRate.toLocaleString('en-IN')}
+                      <span className="text-sm ml-1">/g</span>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -102,6 +133,8 @@ Please let me know the best time to connect. Thank you!`;
             updateCartItems={updateCartItems} 
             cartItems={cartItems} 
             searchTerm={searchTerm}
+            goldRate={goldRate}
+            showOnlyFeatured={false}
           />
         </div>
       </section>
@@ -141,6 +174,19 @@ Please let me know the best time to connect. Thank you!`;
       </section>
     </div>
   );
+};
+
+// Add PropTypes validation
+CollectionsPage.propTypes = {
+  updateCartItems: PropTypes.func.isRequired,
+  cartItems: PropTypes.array.isRequired,
+  goldRate: PropTypes.number,
+  silverRate: PropTypes.number,
+};
+
+CollectionsPage.defaultProps = {
+  goldRate: 0,
+  silverRate: 0,
 };
 
 export default CollectionsPage;

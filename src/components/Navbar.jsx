@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaShoppingCart, FaMinus, FaPlus, FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../assets/logo.jpg'; // Import the logo image
 
 const Navbar = ({ cartItems = [], onIncreaseQuantity, onDecreaseQuantity, appliedPromo, onApplyPromo, onRemovePromo }) => {
+  const navigate = useNavigate();
   // Calculate total items in cart
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
   
@@ -26,30 +27,10 @@ const Navbar = ({ cartItems = [], onIncreaseQuantity, onDecreaseQuantity, applie
   
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [promoInput, setPromoInput] = useState('');
-  const [promoMessage, setPromoMessage] = useState('');
 
-  // Handle apply promo code
-  const handleApplyPromo = () => {
-    if (!promoInput.trim()) {
-      setPromoMessage('Please enter a promo code');
-      return;
-    }
-    
-    const result = onApplyPromo(promoInput);
-    setPromoMessage(result.message);
-    
-    if (result.success) {
-      setPromoInput('');
-      setTimeout(() => setPromoMessage(''), 3000);
-    }
-  };
-  
   // Handle remove promo
   const handleRemovePromo = () => {
     onRemovePromo();
-    setPromoInput('');
-    setPromoMessage('');
   };
 
   // Handle send to WhatsApp
@@ -123,11 +104,6 @@ const Navbar = ({ cartItems = [], onIncreaseQuantity, onDecreaseQuantity, applie
           </div>
           
           <div className="flex items-center space-x-4">
-            <button className="text-gray-700 hover:text-amber-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
             <button 
               className="text-gray-700 hover:text-amber-600 relative"
               onClick={() => setIsCartOpen(!isCartOpen)}

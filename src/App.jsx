@@ -17,6 +17,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [goldRate, setGoldRate] = useState(5500); // Default gold rate in INR per gram
+  const [silverRate, setSilverRate] = useState(85); // Default silver rate in INR per gram
 
   // Simulate fetching gold rate from admin panel
   useEffect(() => {
@@ -107,9 +108,9 @@ function App() {
       />
       <main className="flex-grow pt-16">
         <Routes>
-          <Route path="/" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} />} />
-          <Route path="/home" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} />} />
-          <Route path="/collections" element={<Collections updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} />} />
+          <Route path="/" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} silverRate={silverRate} />} />
+          <Route path="/home" element={<Home updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} silverRate={silverRate} />} />
+          <Route path="/collections" element={<Collections updateCartItems={updateCartItems} cartItems={cartItems} goldRate={goldRate} silverRate={silverRate} />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>

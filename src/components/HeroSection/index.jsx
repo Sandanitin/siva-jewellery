@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FaArrowRight, FaChevronRight, FaChevronLeft, FaRupeeSign } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const HeroSection = ({ goldRate }) => {
+const HeroSection = ({ goldRate, silverRate }) => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -144,15 +145,29 @@ const HeroSection = ({ goldRate }) => {
             </motion.div>
           </div>
           
-          {/* Gold Rate Display */}
-          {goldRate && (
-            <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-6 py-3 rounded-xl flex items-center z-20 shadow-lg">
-              <span className="text-base font-semibold mr-3">24K Gold:</span>
-              <span className="font-bold flex items-center text-xl">
-                <FaRupeeSign className="text-lg mr-2" />
-                {Math.round(goldRate).toLocaleString('en-IN')}
-                <span className="text-base ml-2">/g</span>
-              </span>
+          {/* Gold & Silver Rate Display */}
+          {(goldRate || silverRate) && (
+            <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-6 py-3 rounded-xl flex items-center z-20 shadow-lg space-x-6">
+              {goldRate && (
+                <div className="flex items-center">
+                  <span className="text-base font-semibold mr-2">24K Gold:</span>
+                  <FaRupeeSign className="text-amber-400 mr-1" />
+                  <span className="text-xl font-bold text-amber-400">
+                    {Math.round(goldRate).toLocaleString('en-IN')}
+                  </span>
+                  <span className="text-sm ml-1">/g</span>
+                </div>
+              )}
+              {silverRate && (
+                <div className="flex items-center">
+                  <span className="text-base font-semibold mr-2">Silver:</span>
+                  <FaRupeeSign className="text-gray-200 mr-1" />
+                  <span className="text-xl font-bold text-gray-200">
+                    {silverRate.toLocaleString('en-IN')}
+                  </span>
+                  <span className="text-sm ml-1">/g</span>
+                </div>
+              )}
             </div>
           )}
         </motion.div>
@@ -220,6 +235,16 @@ const HeroSection = ({ goldRate }) => {
       </motion.div>
     </section>
   );
+};
+
+HeroSection.propTypes = {
+  goldRate: PropTypes.number,
+  silverRate: PropTypes.number,
+};
+
+HeroSection.defaultProps = {
+  goldRate: 0,
+  silverRate: 0,
 };
 
 export default HeroSection;

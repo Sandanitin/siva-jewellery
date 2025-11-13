@@ -22,10 +22,10 @@ const features = [
   },
 ];
 
-const Home = ({ updateCartItems, cartItems, goldRate }) => {
+const Home = ({ updateCartItems, cartItems, goldRate, silverRate }) => {
   return (
     <>
-      <HeroSection goldRate={goldRate} />
+      <HeroSection goldRate={goldRate} silverRate={silverRate} />
       <FeaturedCollections showOnlyFeatured={true} updateCartItems={updateCartItems} cartItems={cartItems} />
           {/* Why Choose Us Section */}
         <motion.section 

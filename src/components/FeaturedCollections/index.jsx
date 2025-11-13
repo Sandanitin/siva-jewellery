@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { FaGem, FaHandsHelping, FaShieldAlt, FaShoppingCart } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -256,17 +257,23 @@ const FeaturedCollections = ({
     // },
   ];
 
-  // Filter collections based on showOnlyFeatured prop
-  let displayedCollections = showOnlyFeatured ? collections.slice(0, 4) : collections;
-  
   // Filter collections based on search term
-  if (searchTerm) {
-    displayedCollections = displayedCollections.filter(item => 
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
-
+  const filteredCollections = collections.filter(item => {
+    // If there's a search term, check if it matches name, category, or tags
+    if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
+      return (
+        item.name.toLowerCase().includes(searchLower) ||
+        item.category.toLowerCase().includes(searchLower) ||
+        (item.tags && item.tags.some(tag => 
+          tag.toLowerCase().includes(searchLower)
+        ))
+      );
+    }
+    // If no search term, show all collections
+    return true;
+  });
+  
   const features = [
     {
       title: 'Premium Quality',
@@ -352,10 +359,14 @@ const FeaturedCollections = ({
         </motion.div>
 
         {/* Collections Grid */}
-        {displayedCollections.length === 0 ? (
+        {filteredCollections.length === 0 ? (
           <div className="text-center py-12">
-            <h3 className="text-xl font-medium text-gray-600">No items found matching &quot;{searchTerm}&quot;</h3>
-            <p className="text-gray-500 mt-2">Try a different search term or browse our collections</p>
+            <h3 className="text-xl font-medium text-gray-600">
+              {searchTerm 
+                ? `No items found matching "${searchTerm}"`
+                : 'No collections available.'
+              }
+            </h3>
           </div>
         ) : (
           <motion.div 
@@ -365,7 +376,7 @@ const FeaturedCollections = ({
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
           >
-            {displayedCollections.map((item) => (
+            {filteredCollections.map((item) => (
               <motion.div 
                 key={item.id}
                 className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex flex-col h-full border border-gray-100"
@@ -422,6 +433,20 @@ const FeaturedCollections = ({
       </div>
     </section>
   );
+};
+
+// Add PropTypes validation
+FeaturedCollections.propTypes = {
+  showOnlyFeatured: PropTypes.bool,
+  updateCartItems: PropTypes.func.isRequired,
+  cartItems: PropTypes.array,
+  searchTerm: PropTypes.string,
+};
+
+FeaturedCollections.defaultProps = {
+  showOnlyFeatured: false,
+  cartItems: [],
+  searchTerm: '',
 };
 
 export default FeaturedCollections;
